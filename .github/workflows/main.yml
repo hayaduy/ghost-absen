@@ -2,12 +2,15 @@ name: Ghost Absen Schedule
 
 on:
   schedule:
-    # Menjalankan absen pulang otomatis
+    # --- ABSEN PAGI (06:40 - 07:55 WITA) ---
+    # Jam 22:45 UTC = 06:45 WITA (Senin - Jumat)
+    - cron: '45 22 * * 0-4'
+    
+    # --- ABSEN SORE (16:30 - 18:00 WITA) ---
     # Jam 08:40 UTC = 16:40 WITA (Senin - Jumat)
     - cron: '40 8 * * 1-5'
     
-    # Cadangan jika jadwal pertama antre
-    # Jam 09:30 UTC = 17:30 WITA (Senin - Jumat)
+    # Cadangan Sore jam 09:30 UTC = 17:30 WITA
     - cron: '30 9 * * 1-5'
     
   workflow_dispatch:
