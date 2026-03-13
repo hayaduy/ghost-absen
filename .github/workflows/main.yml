@@ -1,20 +1,31 @@
 name: Ghost Absen Schedule
+
 on:
   schedule:
-    - cron: '40 23 * * 0-4' 
-    - cron: '40 9 * * 1-5'
-  workflow_dispatch: 
+    # Menjalankan absen pulang otomatis
+    # Jam 08:40 UTC = 16:40 WITA (Senin - Jumat)
+    - cron: '40 8 * * 1-5'
+    
+    # Cadangan jika jadwal pertama antre
+    # Jam 09:30 UTC = 17:30 WITA (Senin - Jumat)
+    - cron: '30 9 * * 1-5'
+    
+  workflow_dispatch:
 
 jobs:
   absen:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+
       - name: Install requests
         run: pip install requests
+
       - name: Run Engine
         run: python engine.py
