@@ -1,0 +1,22 @@
+name: Ghost Absen Schedule
+on:
+  schedule:
+    # 23:40 UTC itu jam 06:40 WIB (Senin-Jumat)
+    - cron: '40 23 * * 0-4' 
+    # 09:40 UTC itu jam 16:40 WIB (Senin-Jumat)
+    - cron: '40 9 * * 1-5'
+  workflow_dispatch: # Supaya tombol "Run" muncul buat ngetes manual
+
+jobs:
+  absen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: pip install requests
+      - name: Run Ghost Engine
+        run: python main.py --auto
